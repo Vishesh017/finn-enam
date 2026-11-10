@@ -1,0 +1,37 @@
+/* Enrichment blocks inside attention cards. Inherits tokens from the enclosing .push. */
+.rs, .pc { margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--hair); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.rs-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.rs-head h4 { margin: 0; font-size: 13.5px; font-weight: 600; }
+.rs-head h4 span { margin-left: 8px; font-size: 12px; font-weight: 400; color: var(--muted); }
+.rs-unit { margin-left: auto; font-size: 12px; color: var(--faint); }
+.rs-sample { padding: 1px 6px; border: 1px solid var(--hair); border-radius: 5px; font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+.rs-grid { width: 100%; border-collapse: collapse; }
+.rs-grid th, .rs-grid td { padding: 6px 0; border-top: 1px solid var(--hair); vertical-align: top; }
+.rs-grid thead th { border-top: 0; padding: 0 0 4px; font-size: 12px; font-weight: 500; color: var(--muted); }
+.rs-grid thead th small { display: block; font-size: 11px; font-weight: 400; color: var(--faint); }
+.rs-grid tbody th { width: 28%; text-align: left; font-weight: 500; font-size: 13.5px; }
+.rs-grid sup { margin-left: 2px; font-size: 10px; color: var(--muted); }
+.rs-num { text-align: right; font-size: 13.5px; }
+.rs-strong { font-weight: 600; }
+.rs-num span { display: block; font-weight: 500; }
+.rs-num small { display: block; font-size: 11px; font-weight: 400; color: var(--faint); }
+.rs-up span { color: var(--up); } .rs-down span { color: var(--down); }
+.rs-flat span, .rs-na span { color: var(--muted); }
+.rs-note { margin: 8px 0 0; font-size: 11.5px; line-height: 1.4; color: var(--faint); }
+
+.pc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.pc-kicker { margin: 0; font-size: 12px; color: var(--muted); }
+.pc-name { margin: 1px 0 0; font-size: 16px; font-weight: 600; letter-spacing: -0.008em; }
+.pc-sum { margin: 8px 0 0; font-size: 14px; max-width: 60ch; }
+.pc-career { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.pc-career li { display: grid; grid-template-columns: 1fr auto; column-gap: 12px; font-size: 13px; }
+.pc-role { font-weight: 500; }
+.pc-org { grid-column: 1; color: var(--muted); }
+.pc-years { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 12px; color: var(--faint); }
+.pc-edu { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); }
+.pc-src { margin: 8px 0 0; font-size: 11.5px; color: var(--faint); }
+.pc-src a { color: var(--muted); text-underline-offset: 2px; }
+.pc-miss { margin: 8px 0 0; font-size: 13px; color: var(--muted); }

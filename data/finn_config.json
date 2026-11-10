@@ -1,0 +1,7 @@
+{
+  "volume_mult": 2.0,
+  "volume_lookback": 20,
+  "price_pct": 3.0,
+  "overrides": { "ETERNAL": { "price_pct": 5.0 }, "ITC": { "volume_mult": 2.5 } },
+  "watch_categories": ["results", "M&A", "management_change", "litigation", "pledging"]
+}

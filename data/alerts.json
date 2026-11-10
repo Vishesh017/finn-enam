@@ -1,0 +1,318 @@
+[
+ {
+  "id": "9647e0710e6f13ec",
+  "kind": "announcement",
+  "ticker": "INFY",
+  "ts": "2026-11-09T12:38:52.221910+00:00",
+  "priority": "P1",
+  "title": "Appointment of Chief Financial Officer",
+  "detail": "Board names a new CFO effective 1 December; the outgoing CFO steps down after a handover period.",
+  "category": "management_change",
+  "triggered": true,
+  "source_url": null,
+  "metrics": {
+   "materiality": 4
+  },
+  "enrichment": {
+   "person": {
+    "name": "Ananya Rao",
+    "role": "Chief Financial Officer",
+    "action": "appointed",
+    "effective": "1 December",
+    "outgoing": null,
+    "found": true,
+    "summary": "Finance leader with two decades across manufacturing and technology services, most recently group CFO at a listed engineering company.",
+    "career": [
+     {
+      "role": "Group CFO",
+      "org": "A listed engineering company",
+      "years": "2019 to 2026"
+     },
+     {
+      "role": "VP Finance",
+      "org": "A global IT services firm",
+      "years": "2013 to 2019"
+     },
+     {
+      "role": "Finance Controller",
+      "org": "A consumer goods company",
+      "years": "2005 to 2013"
+     }
+    ],
+    "education": "Chartered accountant; MBA",
+    "sources": [],
+    "sample": true
+   }
+  }
+ },
+ {
+  "id": "114932d16146f44d",
+  "kind": "announcement",
+  "ticker": "ITC",
+  "ts": "2026-11-09T11:38:52.221910+00:00",
+  "priority": "P3",
+  "title": "Allotment of shares under employee stock option scheme",
+  "detail": "",
+  "category": "unclassified",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 1
+  },
+  "enrichment": null
+ },
+ {
+  "id": "3371da33cdad5878",
+  "kind": "announcement",
+  "ticker": "PERSISTENT",
+  "ts": "2026-11-09T10:38:52.221910+00:00",
+  "priority": "P1",
+  "title": "Acquisition of a controlling stake in a data-engineering firm",
+  "detail": "Agreement to acquire 76% for a cash consideration; completion subject to regulatory approvals.",
+  "category": "M&A",
+  "triggered": true,
+  "source_url": null,
+  "metrics": {
+   "materiality": 4
+  },
+  "enrichment": null
+ },
+ {
+  "id": "96dc35eae5548939",
+  "kind": "market",
+  "ticker": "DIXON",
+  "ts": "2026-11-09T09:38:52.221910+00:00",
+  "priority": "P1",
+  "title": "Down 5.8%",
+  "detail": "",
+  "category": null,
+  "triggered": true,
+  "source_url": null,
+  "enrichment": null,
+  "metrics": {
+   "close": 11842.5,
+   "pct_change": -5.8,
+   "volume": 3420000,
+   "avg_volume": 910000,
+   "volume_ratio": 3.76,
+   "vol_mult": 2.0,
+   "price_pct": 3.0
+  }
+ },
+ {
+  "id": "15cb4f99e8948a82",
+  "kind": "announcement",
+  "ticker": "SUNPHARMA",
+  "ts": "2026-11-09T08:38:52.221910+00:00",
+  "priority": "P2",
+  "title": "Credit rating reaffirmed at the highest long-term category",
+  "detail": "Agency reaffirmed its top long-term rating with a stable outlook.",
+  "category": "credit_rating",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 3
+  },
+  "enrichment": null
+ },
+ {
+  "id": "a7465ce43154d274",
+  "kind": "market",
+  "ticker": "TATASTEEL",
+  "ts": "2026-11-09T07:38:52.221910+00:00",
+  "priority": "P2",
+  "title": "Up 1.4%",
+  "detail": "",
+  "category": null,
+  "triggered": true,
+  "source_url": null,
+  "enrichment": null,
+  "metrics": {
+   "close": 168.2,
+   "pct_change": 1.4,
+   "volume": 61000000,
+   "avg_volume": 24000000,
+   "volume_ratio": 2.54,
+   "vol_mult": 2.0,
+   "price_pct": 3.0
+  }
+ },
+ {
+  "id": "b88840eda4bc9f49",
+  "kind": "announcement",
+  "ticker": "TCS",
+  "ts": "2026-11-09T06:38:52.221910+00:00",
+  "priority": "P1",
+  "title": "Outcome of Board Meeting: results for the quarter ended 30 September",
+  "detail": "Board approved unaudited standalone and consolidated results.",
+  "category": "results",
+  "triggered": true,
+  "source_url": null,
+  "metrics": {
+   "materiality": 4
+  },
+  "enrichment": {
+   "results": {
+    "basis": "consolidated",
+    "unit": "INR Cr",
+    "periods": {
+     "current": "Q2 FY27",
+     "qoq": "Q1 FY27",
+     "yoy": "Q2 FY26"
+    },
+    "current": {
+     "revenue": 64200.0,
+     "ebitda": 17040.0,
+     "pbt": 15900.0,
+     "pat": 12300.0,
+     "ebitda_derived": true
+    },
+    "previous_quarter": {
+     "revenue": 62100.5,
+     "ebitda": 16330.0,
+     "pbt": 15200.0,
+     "pat": 11900.0,
+     "ebitda_derived": true
+    },
+    "year_ago": {
+     "revenue": 59700.25,
+     "ebitda": 15708.0,
+     "pbt": 14600.0,
+     "pat": 11300.0,
+     "ebitda_derived": true
+    },
+    "evidence": null,
+    "unverified": 0,
+    "sample": true
+   }
+  }
+ },
+ {
+  "id": "b9e2e0f48cd26e14",
+  "kind": "announcement",
+  "ticker": "HDFCBANK",
+  "ts": "2026-11-09T05:38:52.221910+00:00",
+  "priority": "P3",
+  "title": "Trading window closure intimation",
+  "detail": "",
+  "category": "unclassified",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 1
+  },
+  "enrichment": null
+ },
+ {
+  "id": "977b7198e676abf5",
+  "kind": "announcement",
+  "ticker": "MARUTI",
+  "ts": "2026-11-09T04:38:52.221910+00:00",
+  "priority": "P2",
+  "title": "Declaration of interim dividend and record date",
+  "detail": "Interim dividend declared; record date falls next week.",
+  "category": "dividend",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 3
+  },
+  "enrichment": null
+ },
+ {
+  "id": "3a8f7dccf4e3c3d5",
+  "kind": "announcement",
+  "ticker": "RELIANCE",
+  "ts": "2026-11-09T03:38:52.221910+00:00",
+  "priority": "P3",
+  "title": "Schedule of analyst and institutional investor meetings",
+  "detail": "",
+  "category": "investor_meetings",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 1
+  },
+  "enrichment": null
+ },
+ {
+  "id": "0c88037171906047",
+  "kind": "announcement",
+  "ticker": "TITAN",
+  "ts": "2026-11-09T02:38:52.221910+00:00",
+  "priority": "P3",
+  "title": "Transcript of the earnings conference call",
+  "detail": "",
+  "category": "earnings_call",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 1
+  },
+  "enrichment": null
+ },
+ {
+  "id": "52a0a38df6a01f82",
+  "kind": "announcement",
+  "ticker": "LT",
+  "ts": "2026-11-09T01:38:52.221910+00:00",
+  "priority": "P2",
+  "title": "Board approves capital expenditure for a new fabrication facility",
+  "detail": "Spend approved for added capacity; commissioning expected within two years.",
+  "category": "capex",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 3
+  },
+  "enrichment": null
+ },
+ {
+  "id": "0bc44b2d6027d00b",
+  "kind": "announcement",
+  "ticker": "POLYCAB",
+  "ts": "2026-11-08T23:38:52.221910+00:00",
+  "priority": "P3",
+  "title": "Notice of postal ballot",
+  "detail": "",
+  "category": "postal_ballot",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 1
+  },
+  "enrichment": null
+ },
+ {
+  "id": "16884fcc7b134960",
+  "kind": "announcement",
+  "ticker": "ASIANPAINT",
+  "ts": "2026-11-08T21:38:52.221910+00:00",
+  "priority": "P3",
+  "title": "Compliance certificate under Regulation 74(5)",
+  "detail": "",
+  "category": "unclassified",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 1
+  },
+  "enrichment": null
+ },
+ {
+  "id": "12fa79f6a36ed79c",
+  "kind": "announcement",
+  "ticker": "BAJFINANCE",
+  "ts": "2026-11-08T19:38:52.221910+00:00",
+  "priority": "P3",
+  "title": "Newspaper publication of financial results",
+  "detail": "",
+  "category": "unclassified",
+  "triggered": false,
+  "source_url": null,
+  "metrics": {
+   "materiality": 1
+  },
+  "enrichment": null
+ }
+]
