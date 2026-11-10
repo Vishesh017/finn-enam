@@ -1,30 +1,5 @@
 #!/usr/bin/env python3
-"""
-FINN push worker.
 
-Pulls end-of-day prices for the portfolio, flags unusual volume / price moves,
-classifies exchange announcements into the 17-category taxonomy, scores their
-priority, and writes one merged feed to data/alerts.json for the Next.js app.
-
-Model routing
-  1. Regex rules       -> free, handles unambiguous routine filings
-  2. Haiku-class model -> batched classification of everything else
-  3. Haiku-class model -> reads results filings (Revenue/EBITDA/PBT/PAT) and names the
-                          incoming executive; Python verifies every number (see enrich.py)
-  4. Everything is cached by announcement id, so re-runs cost nothing
-
-Schedule (NSE closes 15:30 IST = 10:00 UTC; leave time for Yahoo to settle):
-  30 10 * * 1-5  cd /srv/finn && python backend/push/finn_push.py
-
-Usage:
-  python finn_push.py
-  python finn_push.py --volume-mult 2.5 --price-pct 4
-  python finn_push.py --config data/finn_config.json --announcements data/announcements.json
-  python finn_push.py --max-enrich 5        # cap enrichment calls per run (web search costs extra)
-
-Announcement records may carry `attachment_url` (a results PDF) and/or `filing_text`
-(the filing's text, used instead of downloading the PDF) and `body`.
-"""
 from __future__ import annotations
 
 import argparse
@@ -118,9 +93,13 @@ DEFAULT_PORTFOLIO = [
 @dataclass
 class Config:
     portfolio: list[str] = field(default_factory=lambda: list(DEFAULT_PORTFOLIO))
-    volume_mult: float = 2.0          # flag when volume >= N x trailing average
+    volume_mult: float = 2.0          # default threshold: volume >= N x trailing average
     volume_lookback: int = 20         # trading days in the average (today excluded)
-    price_pct: float = 3.0            # flag when |1-day move| >= X %
+    price_pct: float = 3.0            # default threshold: |1-day move| >= X %
+    # The app lets each investor choose their own thresholds in the browser, so the worker saves
+    # every move at or above these loose floors and the app decides which ones to show.
+    volume_floor: float = 1.5
+    price_floor: float = 1.0
     overrides: dict[str, dict[str, float]] = field(default_factory=dict)  # per-ticker thresholds
     watch_categories: list[str] = field(
         default_factory=lambda: ["results", "M&A", "management_change", "litigation", "pledging"]
@@ -207,17 +186,14 @@ def market_alerts(frames: dict[str, pd.DataFrame], cfg: Config) -> list[Alert]:
         move = float((last["Close"] / prev["Close"] - 1) * 100)
         session = pd.Timestamp(df.index[-1]).date().isoformat()
 
-        hit_vol, hit_px = ratio >= vol_mult, abs(move) >= price_pct
-        if not (hit_vol or hit_px):
+        # Save anything at or above the loose floors; the app filters with the investor's own thresholds.
+        if not (ratio >= min(cfg.volume_floor, vol_mult) or abs(move) >= min(cfg.price_floor, price_pct)):
             continue
+        # Flags below describe the default thresholds, which the app overrides per investor.
+        hit_vol, hit_px = ratio >= vol_mult, abs(move) >= price_pct
 
-        parts = []
-        if hit_px:
-            parts.append(f"{'Up' if move > 0 else 'Down'} {abs(move):.1f}% to ₹{last['Close']:,.2f}")
-        if hit_vol:
-            parts.append(f"volume {ratio:.1f}× the {cfg.volume_lookback}-day average")
-        title = parts[0] if len(parts) == 1 else f"{parts[0]} on {ratio:.1f}× volume"
-        title = title[0].upper() + title[1:]
+        direction = "Up" if move > 0 else "Down"
+        title = f"{direction} {abs(move):.1f}% to ₹{last['Close']:,.2f} on {ratio:.1f}× volume"
 
         # Both signals together, or either at 1.5x its threshold, is a P1.
         strong = (hit_vol and hit_px) or ratio >= vol_mult * 1.5 or abs(move) >= price_pct * 1.5
@@ -227,8 +203,8 @@ def market_alerts(frames: dict[str, pd.DataFrame], cfg: Config) -> list[Alert]:
             ts=_session_close_utc(df.index[-1]),
             priority="P1" if strong else "P2",
             title=title,
-            detail=f"Session {session}. Your thresholds: {vol_mult:g}× volume, ±{price_pct:g}% price.",
-            triggered=True,
+            detail=f"Session {session}. Default thresholds: {vol_mult:g}× volume, ±{price_pct:g}% price.",
+            triggered=hit_vol or hit_px,
             metrics={
                 "close": round(float(last["Close"]), 2),
                 "pct_change": round(move, 2),
@@ -412,8 +388,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--config", type=Path, default=DATA / "finn_config.json")
     p.add_argument("--announcements", type=Path, default=DATA / "announcements.json")
     p.add_argument("--out", type=Path, default=DATA / "alerts.json")
-    p.add_argument("--volume-mult", type=float)
-    p.add_argument("--price-pct", type=float)
+    p.add_argument("--volume-mult", type=float, help="default volume threshold stored with each alert")
+    p.add_argument("--price-pct", type=float, help="default price threshold stored with each alert")
     p.add_argument("--classifier-model", default=os.getenv("FINN_CLASSIFIER_MODEL", "claude-haiku-5-5"))
     p.add_argument("--extractor-model", default=os.getenv("FINN_EXTRACTOR_MODEL", "claude-haiku-5-5"))
     p.add_argument("--enrich-model", default=os.getenv("FINN_ENRICH_MODEL", "claude-haiku-5-5"),

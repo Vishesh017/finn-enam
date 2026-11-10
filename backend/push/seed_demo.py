@@ -65,6 +65,7 @@ alerts = [
         "Agreement to acquire 76% for a cash consideration; completion subject to regulatory approvals.", True),
     mkt("DIXON", 6, -5.8, 11842.5, 3_420_000, 910_000),
     mkt("TATASTEEL", 8, 1.4, 168.2, 61_000_000, 24_000_000, "P2"),
+    mkt("ITC", 15, 1.3, 468.9, 2_550_000, 1_500_000, "P2"),  # below default thresholds: appears when loosened
     ann("TCS", 9, "Outcome of Board Meeting: results for the quarter ended 30 September", "results", "P1", 4,
         "Board approved unaudited standalone and consolidated results.", True, RESULTS_SAMPLE),
     ann("SUNPHARMA", 7, "Credit rating reaffirmed at the highest long-term category", "credit_rating", "P2", 3,

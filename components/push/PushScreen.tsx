@@ -3,28 +3,33 @@
 import { useMemo, useState } from "react";
 import type { FeedAlert, Tier } from "@/types/push";
 import { AttentionCard, ReviewRow } from "./AlertRow";
-import { clockLabel, plural } from "@/components/push/format";
+import { clockLabel, plural } from "./format";
+import { applyPrefs, usePrefs } from "./prefs";
 import { RoutineFold } from "./RoutineFold";
 import { SettingsSheet } from "./SettingsSheet";
 import { usePushFeed } from "./usePushFeed";
 import { WindowPicker } from "./WindowPicker";
-
+import "./push.css";
 
 const windowName = (h: number) => (h < 24 ? `${h} hours` : h === 24 ? "24 hours" : `${h / 24} days`);
 
 export function PushScreen() {
   const [hours, setHours] = useState(24);
   const [settings, setSettings] = useState(false);
+  const { prefs, setPrefs, ready } = usePrefs();
   const { data, error, loading, refresh } = usePushFeed(hours);
   const now = useMemo(() => Date.now(), [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Server tiers are a starting point; this investor's thresholds decide what is shown and how it ranks.
+  const alerts = useMemo(() => (data ? applyPrefs(data.alerts, prefs) : []), [data, prefs]);
+
   const groups = useMemo(() => {
     const g: Record<Tier, FeedAlert[]> = { attention: [], review: [], routine: [] };
-    data?.alerts.forEach((a) => g[a.tier].push(a));
+    alerts.forEach((a) => g[a.tier].push(a));
     return g;
-  }, [data]);
+  }, [alerts]);
 
-  const widen = hours < 168;
+  const filteredOut = !!data && data.alerts.length > 0 && alerts.length === 0;
 
   return (
     <main className="push" aria-busy={loading}>
@@ -56,31 +61,35 @@ export function PushScreen() {
         </div>
       )}
 
-      {!data && !error && (
+      {(!data || !ready) && !error && (
         <div className="state" role="status">
           <div className="skel tall" /><div className="skel" /><div className="skel" />
         </div>
       )}
 
-      {data && (
+      {data && ready && (
         <>
           <p className="digest">
-            {data.alerts.length === 0
-              ? `Nothing filed or flagged in the last ${windowName(hours)}.`
+            {alerts.length === 0
+              ? filteredOut
+                ? `Your thresholds are hiding everything from the last ${windowName(hours)}.`
+                : `Nothing filed or flagged in the last ${windowName(hours)}.`
               : <>
-                  <b>{data.counts.attention}</b> {data.counts.attention === 1 ? "needs" : "need"} attention,{" "}
-                  <b>{data.counts.review}</b> worth a look, {plural(data.counts.routine, "routine filing")} tucked away.
+                  <b>{groups.attention.length}</b> {groups.attention.length === 1 ? "needs" : "need"} attention,{" "}
+                  <b>{groups.review.length}</b> worth a look, {plural(groups.routine.length, "routine filing")} tucked away.
                 </>}
           </p>
 
           {error && <p className="note bad pad" role="alert">{error} Showing the last loaded feed.</p>}
 
-          {data.alerts.length === 0 && (
+          {alerts.length === 0 && (
             <div className="state">
-              <p className="note">Your thresholds are on. Anything that crosses them will appear here.</p>
+              <p className="note">
+                {filteredOut ? "Loosen the volume or price thresholds to see smaller moves." : "Anything that crosses your thresholds will appear here."}
+              </p>
               <div className="actions">
-                {widen && <button type="button" className="primary" onClick={() => setHours(168)}>Look back 7 days</button>}
-                <button type="button" className="ghost" onClick={() => setSettings(true)}>Adjust thresholds</button>
+                {!filteredOut && hours < 168 && <button type="button" className="primary" onClick={() => setHours(168)}>Look back 7 days</button>}
+                <button type="button" className={filteredOut ? "primary" : "ghost"} onClick={() => setSettings(true)}>Adjust thresholds</button>
               </div>
             </div>
           )}
@@ -107,7 +116,13 @@ export function PushScreen() {
         </>
       )}
 
-      <SettingsSheet open={settings} onClose={() => setSettings(false)} />
+      <SettingsSheet
+        open={settings}
+        prefs={prefs}
+        attentionCount={groups.attention.length}
+        onChange={setPrefs}
+        onClose={() => setSettings(false)}
+      />
     </main>
   );
 }
