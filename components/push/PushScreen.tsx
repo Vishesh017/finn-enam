@@ -9,7 +9,7 @@ import { RoutineFold } from "./RoutineFold";
 import { SettingsSheet } from "./SettingsSheet";
 import { usePushFeed } from "./usePushFeed";
 import { WindowPicker } from "./WindowPicker";
-import "./push.css";
+
 
 const windowName = (h: number) => (h < 24 ? `${h} hours` : h === 24 ? "24 hours" : `${h / 24} days`);
 
