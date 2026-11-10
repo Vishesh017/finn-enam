@@ -3,7 +3,7 @@ body { margin: 0; background: #f4f5f7; padding-bottom: calc(60px + env(safe-area
 @media (prefers-color-scheme: dark) { body { background: #0c1018; } }
 
 .tabbar {
-  position: fixed; inset: auto 0 0 0; z-index: 20;
+  position: fixed; inset: auto 0 0 0; z-index: 10;
   display: flex; justify-content: center;
   padding-bottom: env(safe-area-inset-bottom);
   background: color-mix(in srgb, #ffffff 92%, transparent);
@@ -158,7 +158,7 @@ body { margin: 0; background: #f4f5f7; padding-bottom: calc(60px + env(safe-area
 .ghost { background: none; }
 
 /* ---- Settings sheet ------------------------------------------------------ */
-.scrim { position: fixed; inset: 0; z-index: 30; display: flex; align-items: flex-end; justify-content: center; background: rgb(8 12 20 / 0.5); }
+.scrim { position: fixed; inset: 0; z-index: 999; display: flex; align-items: flex-end; justify-content: center; background: rgb(8 12 20 / 0.5); }
 .sheet { width: 100%; max-width: 30rem; max-height: 86dvh; overflow-y: auto; padding: 8px 16px max(18px, env(safe-area-inset-bottom)); background: var(--surface); color: var(--ink); border-radius: 18px 18px 0 0; animation: rise 200ms ease-out; }
 @keyframes rise { from { transform: translateY(24px); opacity: 0; } }
 .grabber { width: 36px; height: 4px; margin: 0 auto 12px; border-radius: 2px; background: var(--hair); }
@@ -344,7 +344,7 @@ body { margin: 0; background: #f4f5f7; padding-bottom: calc(60px + env(safe-area
 .foot p { margin: 0 0 6px; max-width: 60ch; }
 
 /* ---- Ticker sheet -------------------------------------------------------- */
-.scrim { position: fixed; inset: 0; z-index: 20; display: flex; align-items: flex-end; justify-content: center; background: rgb(8 12 20 / 0.5); }
+.scrim { position: fixed; inset: 0; z-index: 999; display: flex; align-items: flex-end; justify-content: center; background: rgb(8 12 20 / 0.5); }
 .sheet {
   width: 100%; max-width: 30rem; max-height: 78dvh; display: flex; flex-direction: column;
   padding: 8px 16px max(16px, env(safe-area-inset-bottom));
